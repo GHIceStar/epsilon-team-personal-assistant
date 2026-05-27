@@ -77,7 +77,9 @@ class Record:
         found_email_obj = self.find_email(email)
 
         if found_email_obj is not None:
-            raise ContactError(f"Email {email} is already added to the contact")
+            raise ContactError(
+                f"Email {email} is already added to the contact"
+            )
 
         self.emails.append(Email(email))
 
@@ -95,7 +97,9 @@ class Record:
             raise ContactError("Email address not found")
         
         if existing_email and existing_email is not found_email_obj:
-            raise ContactError("New email already exists")
+            raise ContactError(
+                f"New email {new_email} already exists in the contact"
+            )
 
         found_email_obj.value = Email(new_email).value
 
