@@ -65,3 +65,34 @@ class Phone(Field):
     def normalize(value: str) -> str:
         """Return phone number containing only digits."""
         return re.sub(r"\D", "", value)
+
+
+class Email(Field):
+    """Represents an email address field in the address book."""
+
+    EMAIL_REGEX = re.compile(
+        r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    )
+
+    def __init__(self, value: str) -> None:
+        normalized_email = self.normalize(value)
+        self.validate(normalized_email)
+
+        super().__init__(normalized_email)
+
+    @staticmethod
+    def normalize(value: str) -> str:
+        """Normalize email address."""
+
+        if not isinstance(value, str):
+            raise ContactError("Email must be a string")
+
+        return value.strip().lower()
+
+    @classmethod
+    def validate(cls, value: str) -> None:
+        """Validate email address."""
+
+        if not cls.EMAIL_REGEX.fullmatch(value):
+            raise ContactError("Invalid email format")
+
