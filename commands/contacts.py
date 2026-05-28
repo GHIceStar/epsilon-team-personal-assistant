@@ -37,29 +37,6 @@ def add_contact(context: CommandContext) -> CommandResult:
     return CommandResult(message=result_message)
 
 @register_command(
-    "add-email",
-    usage='add-email [name] [email]',
-    description="Add an email to existing contact",
-    category="contacts",
-)
-@input_error
-def add_email(context: CommandContext) -> CommandResult:
-    """Add a new email to existing contact."""
-    validate_command_args(context.command, context.args, 2)
-
-    name, email, *_ = context.args
-    record = context.book.find(name)
-    result_message = "Contact updated"
-
-    if record is None:
-        raise ContactError("Contact not found")
-
-    if email is not None:
-        record.add_email(email)
-
-    return CommandResult(message=result_message)
-
-@register_command(
     "change",
     usage="change [name] [old phone] [new phone]",
     description="Change an existing phone number for a contact",
@@ -84,30 +61,6 @@ def change_contact(context: CommandContext) -> CommandResult:
     return CommandResult(message="Contact updated")
 
 @register_command(
-    "change-email",
-    usage="change-email [name] [old email] [new email]",
-    description="Change an existing email for a contact",
-    category="contacts",
-)
-@input_error
-def change_email(context: CommandContext) -> CommandResult:
-    """Change the email of an existing contact."""
-    validate_command_args(
-        context.command,
-        context.args,
-        3,
-    )
-
-    name, old_email, new_email, *_ = context.args
-    record = context.book.find(name)
-
-    if record is None:
-        raise ContactError("Contact not found")
-
-    record.edit_email(old_email, new_email)
-    return CommandResult(message="Contact updated")
-
-@register_command(
     "delete",
     usage="delete [name]",
     description="Delete a contact by name",
@@ -125,30 +78,6 @@ def delete_contact(context: CommandContext) -> CommandResult:
     name, *_ = context.args
     context.book.delete(name)
     return CommandResult(message="Contact deleted")
-
-@register_command(
-    "remove-email",
-    usage="remove-email [name] [email]",
-    description="Remove one email from a contact",
-    category="contacts",
-)
-@input_error
-def remove_email(context: CommandContext) -> CommandResult:
-    """Delete an email from contact."""
-    validate_command_args(
-        context.command,
-        context.args,
-        2,
-    )
-
-    name, email, *_ = context.args
-    record = context.book.find(name)
-
-    if record is None:
-        raise ContactError("Contact not found")
-
-    record.remove_email(email)
-    return CommandResult(message="Email removed")
 
 @register_command(
     "remove-phone",
