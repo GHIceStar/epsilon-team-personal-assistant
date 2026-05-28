@@ -1,4 +1,5 @@
 # epsilon-team-personal-assistant
+
 A command-line personal assistant for managing contacts and notes. Developed as final project of the Neoversity Python course.
 
 ## Requirements
@@ -41,11 +42,15 @@ If you use the local virtual environment:
 | `hello` | Show a greeting. |
 | `add [name] [phone]` | Add a contact or add a phone to an existing contact. |
 | `change [name] [old phone] [new phone]` | Change a phone number. |
+| `change-email [name] [old email] [new email]` | Change an email. |
 | `delete [name]` | Delete a contact. |
 | `remove-phone [name] [phone]` | Remove one phone number from a contact. |
+| `remove-email [name] [email]` | Remove one email from a contact. |
 | `contact [name]` | Show the full contact card. |
 | `all` | Show all contacts. |
+| `search [query]` | Search contacts by name or phone. Show full contact card |
 | `add-birthday [name] [DD.MM.YYYY]` | Add or update birthday. |
+| `add-email [name] [email]` | Add new email. |
 | `show-birthday [name]` | Show birthday for one contact. |
 | `birthdays [--days=7]` | Show upcoming birthdays. |
 | `add-note [name] [title] [text]` | Create a note. |
